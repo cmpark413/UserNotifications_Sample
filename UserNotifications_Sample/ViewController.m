@@ -16,7 +16,7 @@
 
 @implementation ViewController
 
-@synthesize button, imgView;
+@synthesize imgView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,35 +31,27 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
 }
 
 - (void)showNotification {
     
     NSLog(@"show notification.");
     
-    NSString *title = @"회전정보안내";
-    NSString *body = @"";
-    NSURL *url;
-    NSInteger time = CFAbsoluteTimeGetCurrent();
-    if (time % 2 == 0) {
-        body = @"우회전입니다.";
-        url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"right" ofType:@"png"]];
-    }else {
-        body = @"좌회전입니다.";
-        url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"left" ofType:@"png"]];
-    }
+    NSString* title = @"Title String";
+    NSString* subtitle = @"SubTitle String";
+    NSString* body = @"Body String";
+    NSURL* url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"right" ofType:@"png"]];
     
     UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
     content.title = [NSString localizedUserNotificationStringForKey:title arguments:nil];
+    content.subtitle = [NSString localizedUserNotificationStringForKey:subtitle arguments:nil];
     content.body = [NSString localizedUserNotificationStringForKey:body arguments:nil];
-    //content.sound = [UNNotificationSound defaultSound];
+    content.sound = [UNNotificationSound defaultSound];
     
     // modify thumbnail image of notification
-    //CFDictionaryRef ref = CGRectCreateDictionaryRepresentation(CGRectMake(0, 0, 1, 1));
-    //NSDictionary *andBack = (__bridge NSDictionary*)ref;
-    //NSDictionary *dic = [NSDictionary dictionaryWithObject:andBack forKey:UNNotificationAttachmentOptionsThumbnailClippingRectKey];
-    //UNNotificationAttachment *attach = [UNNotificationAttachment attachmentWithIdentifier:@"imageAttach" URL:url options:dic error:nil];
+    // CFDictionaryRef ref = CGRectCreateDictionaryRepresentation(CGRectMake(0.25f, 0.25f, 0.5f, 0.5f)); // default CGRectMake(0, 0, 1, 1)
+    // NSDictionary* optionDic = [NSDictionary dictionaryWithObject:(__bridge NSDictionary*)ref forKey:UNNotificationAttachmentOptionsThumbnailClippingRectKey];
+    // UNNotificationAttachment *attach = [UNNotificationAttachment attachmentWithIdentifier:@"imageAttach" URL:url options:optionDic error:nil];
     
     UNNotificationAttachment *attach = [UNNotificationAttachment attachmentWithIdentifier:@"imageAttach" URL:url options:nil error:nil];
     content.attachments = [NSArray arrayWithObjects:attach, nil];

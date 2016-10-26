@@ -10,7 +10,6 @@
 
 @interface ViewController : UIViewController
 
-@property(nonatomic, retain)IBOutlet UIButton* button;
 @property(nonatomic, retain)IBOutlet UIImageView* imgView;
 
 -(void)showNotification;
